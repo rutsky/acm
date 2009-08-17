@@ -52,7 +52,7 @@ On the 11-th of February, 2006 the contest "Timus Top Coders: First Challenge" i
       nsms[i + j] = std::min(nsms[i + j], nsms[i] + 1);
   }
   
-  int const minsms = *std::min_element(nsms.begin() + adlen, nsms.begin() + adlen + std::max(N, M));
+  int const minsms = nsms[adlen];
   
   //std::copy(nsms.begin(), nsms.begin() + ad.length() + std::max(N, M), ostream_iterator<int>(cout, " "));
   
