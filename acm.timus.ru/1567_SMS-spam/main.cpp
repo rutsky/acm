@@ -32,7 +32,7 @@ int main()
         cost += 1;
         break;
       default:
-        throw "";
+        ;//throw "";
       }
     }
   }
