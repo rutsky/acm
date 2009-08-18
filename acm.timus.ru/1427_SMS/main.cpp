@@ -39,22 +39,33 @@ On the 11-th of February, 2006 the contest "Timus Top Coders: First Challenge" i
   
   //cout << N << " " << M << "\n'" << ad << "'\n";
   
-  int const inf = 1000000000;
-  vector<int> nsms(110010, inf);
-  nsms[0] = 0;
-  
-  for (int i = 0; i < adlen; ++i)
+  if (N >= M)
   {
-    for (int j = 1; j <= N; ++j)
-      nsms[i + j] = std::min(nsms[i + j], nsms[i] + 1);
-      
-    for (int j = 1; j <= M && (isalpha(ad[i + j - 1]) || ad[i + j - 1] == ' '); ++j)
-      nsms[i + j] = std::min(nsms[i + j], nsms[i] + 1);
+    cout << (adlen / N) + (adlen % N != 0) << "\n";
   }
-  
-  int const minsms = nsms[adlen];
-  
-  //std::copy(nsms.begin(), nsms.begin() + ad.length() + std::max(N, M), ostream_iterator<int>(cout, " "));
-  
-  std::cout << minsms << "\n";
+  else
+  {
+    int nLastPos(0);
+    int nLastSms(0);
+    for (int i = 0; i < adlen; ++i)
+    {
+      int j;
+      for (j = 0; j < adlen && (isalpha(ad[i + j]) || ad[i + j] == ' ') && j < M; ++j)
+        ;
+        
+      if (j > 0)
+      {
+        int const usingN = (i + j - nLastPos) / N + ((i + j - nLastPos) % N != 0);
+        int const usingM = (i - nLastPos) / N + ((i - nLastPos) % N != 0) + 1;
+        
+        if (usingM <= usingN)
+        {
+          nLastPos = i + j + M;
+          nLastSms += usingM;
+        }
+      }
+    }
+    
+    cout << nLastSms + (adlen - nLastPos) / N + ((adlen - nLastPos) % N != 0) << "\n";
+  }
 }
