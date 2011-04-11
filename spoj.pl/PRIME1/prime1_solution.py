@@ -44,10 +44,11 @@ def is_prime(m, r):
 #sys.exit()
 
 inp = map(int, sys.stdin.read().split())
+n_tests = inp[0]
 
 failure_prob = 0.01
 
-for m, n in zip(inp[1::2], inp[2::2]):
+for test_idx, (m, n) in enumerate(zip(inp[1::2], inp[2::2])):
     #k = int(math.ceil(math.log((n - m + 1) / failure_prob, 4)))
     k = 20
 
@@ -55,6 +56,7 @@ for m, n in zip(inp[1::2], inp[2::2]):
         if is_prime(i, k):
             print i
 
-    print
+    if test_idx + 1 != n_tests:
+        print
 
 # vim: set ts=4 sw=4 et:
