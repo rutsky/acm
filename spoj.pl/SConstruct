@@ -70,16 +70,15 @@ def run_tests(env, target, source):
                 *** stderr:
                 {2}
                 ===
-
                 """).format(process.returncode, stdout, stderr, 
                         name=test_print_name)
             return True
 
         if test_out_data is not None:
             if test_out_data != stdout:
-                print "Test '{0}' failed: output differs.\n\n".format(
+                print "=== Test '{0}' ===\n    FAILED: output differs".format(
                         test_print_name)
-                return True
+                return False
             else:
                 os.remove(test_out_new)
         
@@ -101,8 +100,10 @@ def add_tests():
         tests = map(lambda f: File(os.path.join(root, f)), 
                 filter(is_test_in_file, files))
 
-        Command(os.path.join(root, "test"), [solution] + tests, run_tests, 
-                chdir=False)
+        for test in tests:
+            target = File(os.path.splitext(str(test))[0])
+            Command(target, [solution, test], run_tests, 
+                    chdir=False)
 
 add_tests()
 
