@@ -25,7 +25,7 @@ def is_prime(m, r):
         if x == 1 or x == m - 1:
             continue
         for j in xrange(s - 1):
-            x = pow(x, 2, m)
+            x = (x ** 2) % m
             if x == 1:
                 return False
             elif x == m - 1:
