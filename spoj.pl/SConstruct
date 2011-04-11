@@ -51,20 +51,24 @@ def run_tests(env, target, source):
         else:
             test_out_data = None
 
+        cmd = "{app} < {test_in} 1> {test_out_new} 2> {test_err}".format(
+                test_in=test_in, app=app, test_out_new=test_out_new,
+                test_err=test_err)
+        #print cmd
+
         start_time = datetime.datetime.now()
-        process = subprocess.Popen(
-            [app],
-            stdin=subprocess.PIPE,
-            stdout=subprocess.PIPE,
-            stderr=subprocess.PIPE)
-        stdout, stderr = process.communicate(test_data)
+        returncode = subprocess.call(cmd, shell=True)
+
         run_time = datetime.datetime.now() - start_time
 
-        with open(test_out_new, 'w') as f:
-            f.write(stdout)
-        if len(stderr) != 0 or process.returncode:
-            with open(test_err, 'w') as f:
-                f.write(stderr)
+        with open(test_out_new, 'r') as f:
+            stdout = f.read()
+        with open(test_err, 'r') as f:
+            stderr = f.read()
+        if len(stderr) == 0:
+            os.remove(test_err)
+
+        if len(stderr) != 0 or returncode:
             print textwrap.dedent("""\
                 === Test '{name}' failed in {time}! ===
                 *** Return code: {0}.
