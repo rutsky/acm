@@ -50,7 +50,7 @@ for test_idx, (m, n) in enumerate(zip(inp[1::2], inp[2::2])):
     assert m <= n
     assert n - m <= 100000
 
-    k = 5
+    k = 4
 
     if m <= 2 <= n:
         print(2)
