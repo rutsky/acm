@@ -17,6 +17,7 @@ import sys
 import os.path
 import subprocess
 import textwrap
+import datetime
 
 tools = ["default"]
 
@@ -50,12 +51,14 @@ def run_tests(env, target, source):
         else:
             test_out_data = None
 
+        start_time = datetime.datetime.now()
         process = subprocess.Popen(
             [app],
             stdin=subprocess.PIPE,
             stdout=subprocess.PIPE,
             stderr=subprocess.PIPE)
         stdout, stderr = process.communicate(test_data)
+        run_time = datetime.datetime.now() - start_time
 
         with open(test_out_new, 'w') as f:
             f.write(stdout)
@@ -63,7 +66,7 @@ def run_tests(env, target, source):
             with open(test_err, 'w') as f:
                 f.write(stderr)
             print textwrap.dedent("""\
-                === Test '{name}' failed! ===
+                === Test '{name}' failed in {time}! ===
                 *** Return code: {0}.
                 *** stdout:
                 {1}
@@ -71,18 +74,24 @@ def run_tests(env, target, source):
                 {2}
                 ===
                 """).format(process.returncode, stdout, stderr, 
-                        name=test_print_name)
+                        name=test_print_name, time=run_time)
             return True
 
         if test_out_data is not None:
             if test_out_data.strip() != stdout.strip():
-                print "=== Test '{0}' ===\n    FAILED: output differs".format(
-                        test_print_name)
+                print textwrap.dedent("""\
+                        === Test '{0}' in {time} ===
+                            FAILED: output differs
+                        """).format(
+                            test_print_name, time=run_time)
                 return False
             else:
                 os.remove(test_out_new)
-        
-        print "=== Test '{0}' passed ===".format(test_print_name)
+                print "=== Test '{0}' passed in {time} ===".format(
+                        test_print_name, time=run_time)
+        else:
+            print "=== Test '{0}' ran in {time} ===".format(
+                test_print_name, time=run_time)
 
         return False
 
