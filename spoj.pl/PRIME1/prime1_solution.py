@@ -54,12 +54,31 @@ for test_idx, (m, n) in enumerate(zip(inp[1::2], inp[2::2])):
     assert m <= n
     assert n - m <= 100000
 
-    k = 15
+    k = 12
 
+    if m <= 2 <= n:
+        print 2
+    if m <= 3 <= n:
+        print 3
+    if m <= 5 <= n:
+        print 5
+    if m <= 7 <= n:
+        print 7
+    if m <= 11 <= n:
+        print 11
+    if m <= 17 <= n:
+        print 17
+    if m <= 19 <= n:
+        print 19
+    if n <= 20:
+        print
+        continue
+    elif m < 20:
+        m = 20
+    
     for i in xrange(m, n + 1):
         if (i % 2 == 0 or i % 3 == 0 or i % 5 == 0 or i % 7 == 0 or 
-            i % 11 == 0 or i % 13 == 0 or i % 17 ==0 or i % 19 == 0 or
-            i % 23 == 0 or i % 29 == 0):
+            i % 11 == 0 or i % 13 == 0 or i % 17 ==0 or i % 19 == 0):
             continue
         if is_prime(i, k):
             print i
