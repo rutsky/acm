@@ -15,7 +15,7 @@ def is_prime(m, r):
 
     # m - 1 = 2^s * t
     s = int(math.log(((((m - 2) ^ (m - 1)) + 1) >> 1), 2))
-    t = (m - 1) / pow(2, s)
+    t = (m - 1) / (1 << s)
 
     # r rounds
     for i in xrange(r):
