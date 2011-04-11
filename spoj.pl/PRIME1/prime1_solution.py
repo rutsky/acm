@@ -66,6 +66,8 @@ for test_idx, (m, n) in enumerate(zip(inp[1::2], inp[2::2])):
         print 7
     if m <= 11 <= n:
         print 11
+    if m <= 13 <= n:
+        print 13
     if m <= 17 <= n:
         print 17
     if m <= 19 <= n:
