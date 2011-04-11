@@ -27,7 +27,7 @@ def is_prime(m, r):
     for i in xrange(r):
         a = 2 + int(random.random() * (m - 2 + 1 - 2))
 
-        x = pow(a, t, m)
+        x = int(pow(a, t, m))
         if x == 1 or x == m - 1:
             continue
         for j in xrange(s - 1):
@@ -89,6 +89,6 @@ for test_idx, (m, n) in enumerate(zip(inp[1::2], inp[2::2])):
                 print(i)
 
     if test_idx + 1 != n_tests:
-        print()
+        sys.stdout.write("\n")
 
 # vim: set ts=4 sw=4 et:
