@@ -25,10 +25,6 @@ Export('global_env')
 env = global_env.Clone()
 
 def run_tests(env, target, source):
-    print "Dummy target: {0}".format(str(target[0]))
-    print "Source: {0}".format(str(source[0]))
-    print os.getcwd()
-
     app = str(source[0].abspath)
 
     for test in source[1:]:
@@ -38,6 +34,7 @@ def run_tests(env, target, source):
         test_out = os.path.join(test_dir, test_name + ".out")
         test_out_new = os.path.join(test_dir, test_name + ".out_new")
         test_err = os.path.join(test_dir, test_name + ".err")
+        test_print_name = os.path.join(test_dir, test_name)
 
         if os.path.exists(test_out_new):
             os.remove(test_out_new)
@@ -74,19 +71,21 @@ def run_tests(env, target, source):
                 {2}
                 ===
 
-                """).format(process.returncode, stdout, stderr, name=test_name)
-            return False
+                """).format(process.returncode, stdout, stderr, 
+                        name=test_print_name)
+            return True
 
         if test_out_data is not None:
             if test_out_data != stdout:
-                print "Test '{0}' failed: output differs.\n\n".format(test_name)
-                return False
+                print "Test '{0}' failed: output differs.\n\n".format(
+                        test_print_name)
+                return True
             else:
                 os.remove(test_out_new)
         
-        print "=== Test '{0}' passed ===".format(test_name)
+        print "=== Test '{0}' passed ===".format(test_print_name)
 
-        return True
+        return False
 
 def add_tests():
     for root, dirs, files in os.walk('.'):
