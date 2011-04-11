@@ -14,8 +14,14 @@ def is_prime(m, r):
         return False
 
     # m - 1 = 2^s * t
-    s = int(math.log(((((m - 2) ^ (m - 1)) + 1) >> 1), 2))
-    t = (m - 1) / (1 << s)
+    #s = int(math.log(((((m - 2) ^ (m - 1)) + 1) >> 1), 2))
+    #t = (m - 1) / (1 << s)
+
+    t = m - 1
+    s = 0
+    while t % 2 == 0:
+        t >>= 1
+        s += 1
 
     # r rounds
     for i in xrange(r):
