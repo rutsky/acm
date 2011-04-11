@@ -61,10 +61,15 @@ def is_prime(m, r):
 
 inp = map(int, sys.stdin.read().split())
 n_tests = inp[0]
+assert 0 <= n_tests <= 10
+assert (len(inp) - 1) / 2 == n_tests
 
 failure_prob = 0.01
 
 for test_idx, (m, n) in enumerate(zip(inp[1::2], inp[2::2])):
+    assert m <= n
+    assert n - m <= 100000
+
     #k = int(math.ceil(math.log((n - m + 1) / failure_prob, 4)))
     k = 20
 
