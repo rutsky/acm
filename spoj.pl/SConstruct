@@ -1,0 +1,110 @@
+#  Copyright (C) 2011  Vladimir Rutsky <altsysrq@gmail.com>
+#
+#  This program is free software: you can redistribute it and/or modify
+#  it under the terms of the GNU General Public License as published by
+#  the Free Software Foundation, either version 3 of the License, or
+#  (at your option) any later version.
+#
+#  This program is distributed in the hope that it will be useful,
+#  but WITHOUT ANY WARRANTY; without even the implied warranty of
+#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#  GNU General Public License for more details.
+#
+#  You should have received a copy of the GNU General Public License
+#  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+import sys
+import os.path
+import subprocess
+import textwrap
+
+tools = ["default"]
+
+global_env = Environment(tools=tools)
+Export('global_env')
+env = global_env.Clone()
+
+def run_tests(env, target, source):
+    print "Dummy target: {0}".format(str(target[0]))
+    print "Source: {0}".format(str(source[0]))
+    print os.getcwd()
+
+    app = str(source[0].abspath)
+
+    for test in source[1:]:
+        test_in = str(test)
+        test_name = os.path.splitext(os.path.split(test_in)[1])[0]
+        test_dir = os.path.split(test_in)[0]
+        test_out = os.path.join(test_dir, test_name + ".out")
+        test_out_new = os.path.join(test_dir, test_name + ".out_new")
+        test_err = os.path.join(test_dir, test_name + ".err")
+
+        if os.path.exists(test_out_new):
+            os.remove(test_out_new)
+        if os.path.exists(test_err):
+            os.remove(test_err)
+
+        with open(test_in, 'r') as f:
+            test_data = f.read()
+
+        if os.path.exists(test_out):
+            with open(test_out, 'r') as f:
+                test_out_data = f.read()
+        else:
+            test_out_data = None
+
+        process = subprocess.Popen(
+            [app],
+            stdin=subprocess.PIPE,
+            stdout=subprocess.PIPE,
+            stderr=subprocess.PIPE)
+        stdout, stderr = process.communicate(test_data)
+
+        with open(test_out_new, 'w') as f:
+            f.write(stdout)
+        if len(stderr) != 0 or process.returncode:
+            with open(test_err, 'w') as f:
+                f.write(stderr)
+            print textwrap.dedent("""\
+                === Test '{name}' failed! ===
+                *** Return code: {0}.
+                *** stdout:
+                {1}
+                *** stderr:
+                {2}
+                ===
+
+                """).format(process.returncode, stdout, stderr, name=test_name)
+            return False
+
+        if test_out_data is not None:
+            if test_out_data != stdout:
+                print "Test '{0}' failed: output differs.\n\n".format(test_name)
+                return False
+            else:
+                os.remove(test_out_new)
+        
+        print "=== Test '{0}' passed ===".format(test_name)
+
+        return True
+
+def add_tests():
+    for root, dirs, files in os.walk('.'):
+        is_solution_file = \
+                lambda f: os.path.splitext(f)[0].endswith("_solution")
+        is_test_in_file = lambda f: f.startswith("test_") and f.endswith(".in")
+        solutions = filter(is_solution_file, files)
+        
+        if len(solutions) != 1:
+            continue
+        solution = File(os.path.join(root, solutions[0]))
+
+        tests = map(lambda f: File(os.path.join(root, f)), 
+                filter(is_test_in_file, files))
+
+        Command(os.path.join(root, "test"), [solution] + tests, run_tests, 
+                chdir=False)
+
+add_tests()
+
+# vim: set filetype=python ts=4 sw=4 et:
