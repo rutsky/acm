@@ -58,7 +58,8 @@ for test_idx, (m, n) in enumerate(zip(inp[1::2], inp[2::2])):
 
     for i in xrange(m, n + 1):
         if (i % 2 == 0 or i % 3 == 0 or i % 5 == 0 or i % 7 == 0 or 
-            i % 11 == 0 or i % 13 == 0 or i % 17 ==0 or i % 19 == 0):
+            i % 11 == 0 or i % 13 == 0 or i % 17 ==0 or i % 19 == 0 or
+            i % 23 == 0 or i % 29 == 0):
             continue
         if is_prime(i, k):
             print i
