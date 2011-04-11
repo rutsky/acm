@@ -8,10 +8,10 @@ def is_prime(m, r):
     """Miller-Rabin primality test.
     See <https://secure.wikimedia.org/wikipedia/en/wiki/Miller%E2%80%93Rabin_primality_test>"""
 
-    if m == 2 or m == 3:
-        return True
-    if m == 1 or m % 2 == 0:
-        return False
+    #if m == 2 or m == 3:
+    #    return True
+    #if m == 1 or m % 2 == 0:
+    #    return False
 
     # m - 1 = 2^s * t
     #s = int(math.log(((((m - 2) ^ (m - 1)) + 1) >> 1), 2))
