@@ -35,7 +35,8 @@ def is_prime(m, r):
             if x == 1:
                 return False
             elif x == m - 1:
-                break
+                #break
+                return True
         else:
             return False
 
