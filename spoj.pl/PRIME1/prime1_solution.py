@@ -25,7 +25,7 @@ def is_prime(m, r):
 
     # r rounds
     for i in xrange(r):
-        a = random.randrange(2, m - 2 + 1)
+        a = 2 + int(random.random() * (m - 2 + 1 - 2))
 
         x = pow(a, t, m)
         if x == 1 or x == m - 1:
