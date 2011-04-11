@@ -41,10 +41,7 @@ def is_prime(m, r):
 
     return True
 
-#print is_prime(7, 20)
-#sys.exit()
-
-inp = map(int, sys.stdin.read().split())
+inp = list(map(int, sys.stdin.read().split()))
 n_tests = inp[0]
 assert 0 <= n_tests <= 10
 assert (len(inp) - 1) / 2 == n_tests
@@ -56,29 +53,29 @@ for test_idx, (m, n) in enumerate(zip(inp[1::2], inp[2::2])):
     k = 5
 
     if m <= 2 <= n:
-        print 2
+        print(2)
     if m <= 3 <= n:
-        print 3
+        print(3)
     if m <= 5 <= n:
-        print 5
+        print(5)
     if m <= 7 <= n:
-        print 7
+        print(7)
     if m <= 11 <= n:
-        print 11
+        print(11)
     if m <= 13 <= n:
-        print 13
+        print(13)
     if m <= 17 <= n:
-        print 17
+        print(17)
     if m <= 19 <= n:
-        print 19
+        print(19)
     if m <= 23 <= n:
-        print 23
+        print(23)
     if m <= 29 <= n:
-        print 29
+        print(29)
     if m <= 31 <= n:
-        print 31
+        print(31)
     if m <= 37 <= n:
-        print 37
+        print(37)
     if m < 38:
         m = 38
 
@@ -89,9 +86,9 @@ for test_idx, (m, n) in enumerate(zip(inp[1::2], inp[2::2])):
                 i % 23 == 0 or i % 29 == 0 or i % 31 == 0 or i % 37 == 0):
                 continue
             if is_prime(i, k):
-                print i
+                print(i)
 
     if test_idx + 1 != n_tests:
-        print
+        print()
 
 # vim: set ts=4 sw=4 et:
