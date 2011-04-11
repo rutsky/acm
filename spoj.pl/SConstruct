@@ -75,7 +75,7 @@ def run_tests(env, target, source):
             return True
 
         if test_out_data is not None:
-            if test_out_data != stdout:
+            if test_out_data.strip() != stdout.strip():
                 print "=== Test '{0}' ===\n    FAILED: output differs".format(
                         test_print_name)
                 return False
