@@ -78,19 +78,17 @@ for test_idx, (m, n) in enumerate(zip(inp[1::2], inp[2::2])):
         print 29
     if m <= 31 <= n:
         print 31
-    if n <= 32:
-        print
-        continue
-    elif m < 32:
+    if m < 32:
         m = 32
-    
-    for i in xrange(m, n + 1):
-        if (i % 2 == 0 or i % 3 == 0 or i % 5 == 0 or i % 7 == 0 or 
-            i % 11 == 0 or i % 13 == 0 or i % 17 == 0 or i % 19 == 0 or
-            i % 23 == 0 or i % 29 == 0 or i % 31 == 0):
-            continue
-        if is_prime(i, k):
-            print i
+
+    if n > 32:
+        for i in xrange(m, n + 1):
+            if (i % 2 == 0 or i % 3 == 0 or i % 5 == 0 or i % 7 == 0 or 
+                i % 11 == 0 or i % 13 == 0 or i % 17 == 0 or i % 19 == 0 or
+                i % 23 == 0 or i % 29 == 0 or i % 31 == 0):
+                continue
+            if is_prime(i, k):
+                print i
 
     if test_idx + 1 != n_tests:
         print
