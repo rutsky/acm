@@ -4,6 +4,7 @@
  * 22.05.2011
  *
  * Read problem.
+ * Find solution.
  */
 
 #include <iostream>
