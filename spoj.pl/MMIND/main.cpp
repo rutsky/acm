@@ -3,7 +3,7 @@
  * Vladimir Rutsky <altsysrq@gmail.com>
  * 22.05.2011
  *
- * Read.
+ * Read. Too hard.
  */
 
 #include <iostream>
