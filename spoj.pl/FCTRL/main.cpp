@@ -2,6 +2,8 @@
  * 11. Factorial
  * Vladimir Rutsky <altsysrq@gmail.com>
  * 22.05.2011
+ *
+ * Read problem.
  */
 
 #include <iostream>
