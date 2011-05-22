@@ -35,15 +35,11 @@ int main()
     }
     else
     {
-      size_t const n5s = N / 5;
-      
-      size_t idx(1), zeroes(0);
-      for (; idx < pows.size() && pows[idx] < N; ++idx)
-      {
-        zeroes += idx;
-      }
-      
-      cout << ns - (idx - 1) + zeroes;
+      size_t zeroes = 0;
+      for (size_t nn = N; nn >= 5; nn /= 5)
+        zeroes += nn / 5;
+
+      cout << zeroes;
     }
 
     cout << "\n";
