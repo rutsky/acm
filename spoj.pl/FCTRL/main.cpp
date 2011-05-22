@@ -22,15 +22,13 @@ int main()
       pows.push_back(pow);
   }
 
-  size_t  T;
-  assert(T >= 0);
+  size_t T;
   cin >> T;
   for (size_t idx = 0; idx < T; ++idx)
   {
     size_t N;
     cin >> N;
 
-    assert(N >= 0);
     if (N < 10)
     {
       cout << "0";
