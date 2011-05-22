@@ -17,7 +17,7 @@ int main()
 {
   vector<size_t> pows;
   {
-    int pow = 5;
+    int pow = 1;
     for (size_t i = 0; i < 14; ++i, pow *= 5)
       pows.push_back(pow);
   }
@@ -29,28 +29,21 @@ int main()
     size_t N;
     cin >> N;
 
-    if (N < 10)
+    if (N < 5)
     {
       cout << "0";
     }
     else
     {
-      size_t const ns = N / 5;
+      size_t const n5s = N / 5;
       
       size_t idx(1), zeroes(0);
-      for (; idx < pows.size(); ++idx)
+      for (; idx < pows.size() && pows[idx] < N; ++idx)
       {
-        if (pows[idx] > N)
-        {
-          break;
-        }
-        else
-        {
-          zeroes += idx;
-        }
+        zeroes += idx;
       }
       
-      cout << ns - idx + zeroes;
+      cout << ns - (idx - 1) + zeroes;
     }
 
     cout << "\n";
