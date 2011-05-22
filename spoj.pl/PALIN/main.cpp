@@ -22,12 +22,12 @@ int main()
     cin >> str;
 
     size_t const len = str.length();
-    cassert(len > 0);
-    cassert(str[0] > '0');
+    assert(len > 0);
+    assert(str[0] > '0');
     if (str.length() == 1)
     {
-      if (str[0] < '8')
-        cout << str[0] + 1;
+      if (str[0] <= '8')
+        cout << (char)(str[0] + 1);
       else
         cout << "11";
     }
@@ -61,27 +61,27 @@ int main()
         {
           for (size_t i = 0; i < half; ++i)
             cout << str[i];
-          cout << str[half] + 1;
+          cout << (char)(str[half] + 1);
           for (size_t i = 0; i < half; ++i)
             cout << str[half - 1 - i];
         }
         else
         {
           int non9idx = half - 1;
-          for (; non9idx >= 0 && str[i] == '9'; --non9idx)
+          for (; non9idx >= 0 && str[non9idx] == '9'; --non9idx)
             ;
           if (non9idx >= 0)
           {
-            for (size_t i = 0; i < non9idx; ++i)
+            for (int i = 0; i < non9idx; ++i)
               cout << str[i];
-            cout << str[non9idx] + 1;
+            cout << (char)(str[non9idx] + 1);
             for (size_t i = non9idx + 1; i < half; ++i)
               cout << '0';
             if (len % 2 == 1)
               cout << '0';
             for (size_t i = non9idx + 1; i < half; ++i)
               cout << '0';
-
+            cout << (char)(str[non9idx] + 1);
             for (int i = non9idx - 1; i >= 0; --i)
               cout << str[i];
           }
