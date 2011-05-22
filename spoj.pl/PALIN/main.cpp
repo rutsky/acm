@@ -2,6 +2,8 @@
  * 5. The Next Palindrome
  * Vladimir Rutsky <altsysrq@gmail.com>
  * 22.05.2011
+ *
+ * 1. Accepted: https://www.spoj.pl/files/src/5127072/
  */
 
 #include <iostream>
