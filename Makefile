@@ -10,6 +10,10 @@ public:
 	git push git@github.com:rutsky/acm.git master
 	git push git@gitorious.org:rutsky/acm.git master
 
+update:	
+	git fetch origin
+	git merge origin/master
+
 clean-light:
 	find . -name '*.o' -exec rm '{}' \;
 	find . -wholename '*.gch/c++' -exec rm '{}' \;
