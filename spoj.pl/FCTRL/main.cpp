@@ -5,6 +5,8 @@
  *
  * Read problem.
  * Find solution.
+ *
+ * Submit solution: accepted.
  */
 
 #include <iostream>
