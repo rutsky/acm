@@ -4,6 +4,9 @@ import sys
 import random
 import math
 
+import psyco
+psyco.full()
+
 rnd = random.random
 
 def is_prime(m, r):
